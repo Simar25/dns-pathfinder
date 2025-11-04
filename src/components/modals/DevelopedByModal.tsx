@@ -14,9 +14,8 @@ interface DevelopedByModalProps {
 
 const DevelopedByModal = ({ open, onOpenChange }: DevelopedByModalProps) => {
   const teamMembers = [
-    { name: "Team Member 1", regNo: "REG123456" },
-    { name: "Team Member 2", regNo: "REG789012" },
-    { name: "Your Name", regNo: "REG345678" },
+    { name: "Simarjot Singh Anand", regNo: "24BCE5218" },
+    { name: "Shashank Poddar", regNo: "24BCE5241" },
   ];
 
   return (
