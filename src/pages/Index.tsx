@@ -8,7 +8,9 @@ import ResolutionViewer from "@/components/dns/ResolutionViewer";
 import StatsDashboard from "@/components/dns/StatsDashboard";
 import QueryTree from "@/components/dns/QueryTree";
 import ServerConfig from "@/components/dns/ServerConfig";
+import Header from "@/components/Header";
 import { DnsQuery, CacheEntry, AuthServer, ResolutionStep } from "@/types/dns";
+import { toast } from "sonner";
 
 const Index = () => {
   const [queries, setQueries] = useState<DnsQuery[]>([]);
@@ -124,9 +126,52 @@ const Index = () => {
     setServers((prev) => [...prev, server]);
   };
 
+  const handleDownload = () => {
+    if (queries.length === 0) {
+      toast.error("No query data to download. Please perform a DNS query first.");
+      return;
+    }
+
+    const latestQuery = queries[0];
+    const downloadData = {
+      domain: latestQuery.domain,
+      queryType: latestQuery.type,
+      timestamp: new Date(latestQuery.timestamp).toLocaleString(),
+      totalResolutionTime: `${latestQuery.totalTime}ms`,
+      steps: latestQuery.steps?.map((step, index) => ({
+        stepNumber: index + 1,
+        step: step.step,
+        description: step.description,
+        result: step.result,
+        status: step.status,
+        time: `${step.time}ms`,
+      })),
+      statistics: {
+        totalQueries: stats.totalQueries,
+        cacheHits: stats.hits,
+        cacheMisses: stats.misses,
+        hitRate: stats.totalQueries > 0 ? `${((stats.hits / stats.totalQueries) * 100).toFixed(1)}%` : "0%",
+        averageTime: `${stats.avgTime.toFixed(2)}ms`,
+      },
+    };
+
+    const blob = new Blob([JSON.stringify(downloadData, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `dns-query-${latestQuery.domain}-${Date.now()}.json`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+    
+    toast.success("Query data downloaded successfully!");
+  };
+
   return (
     <div className="min-h-screen bg-background p-4 md:p-8">
-      <div className="max-w-7xl mx-auto space-y-6 animate-slide-up">
+      <Header onDownload={handleDownload} />
+      <div className="max-w-7xl mx-auto space-y-6 animate-slide-up pt-16">
         {/* Header */}
         <div className="text-center space-y-4 pb-6">
           <div className="flex items-center justify-center gap-3">
