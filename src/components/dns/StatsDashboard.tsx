@@ -47,18 +47,22 @@ const StatsDashboard = ({ stats }: StatsDashboardProps) => {
       {statCards.map((stat, index) => (
         <Card 
           key={index} 
-          className="p-4 bg-card border-border shadow-lg hover:border-primary transition-all"
+          className="glass-card p-5 hover:scale-105 hover:shadow-lg transition-all duration-300 group animate-fade-in"
+          style={{ animationDelay: `${index * 100}ms` }}
         >
           <div className="flex items-start justify-between">
-            <div>
-              <p className="text-xs text-muted-foreground mb-1">{stat.label}</p>
-              <p className="text-2xl font-bold font-mono">{stat.value}</p>
+            <div className="space-y-1">
+              <p className="text-xs text-muted-foreground font-medium uppercase tracking-wide">{stat.label}</p>
+              <p className="text-3xl font-bold font-mono bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text">{stat.value}</p>
               {stat.label === "Cache Hits" && stats.totalQueries > 0 && (
-                <p className="text-xs text-success mt-1">{hitRate}% hit rate</p>
+                <p className="text-xs text-success font-semibold mt-1 flex items-center gap-1">
+                  <Target className="w-3 h-3" />
+                  {hitRate}% hit rate
+                </p>
               )}
             </div>
-            <div className={`p-2 rounded-lg ${stat.bgColor}`}>
-              <stat.icon className={`w-5 h-5 ${stat.color}`} />
+            <div className={`p-3 rounded-xl ${stat.bgColor} group-hover:scale-110 transition-transform duration-300`}>
+              <stat.icon className={`w-6 h-6 ${stat.color}`} />
             </div>
           </div>
         </Card>

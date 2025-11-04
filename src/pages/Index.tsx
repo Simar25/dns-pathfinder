@@ -169,18 +169,27 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background p-4 md:p-8">
+    <div className="min-h-screen bg-gradient-to-br from-background via-background to-card p-4 md:p-8 relative overflow-hidden">
+      {/* Animated background elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-20 left-10 w-72 h-72 bg-primary/5 rounded-full blur-3xl animate-pulse-slow" />
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-accent/5 rounded-full blur-3xl animate-pulse-slow" style={{ animationDelay: "1s" }} />
+      </div>
+      
       <Header onDownload={handleDownload} />
-      <div className="max-w-7xl mx-auto space-y-6 animate-slide-up pt-16">
+      <div className="max-w-7xl mx-auto space-y-8 animate-slide-up pt-16 relative z-10">
         {/* Header */}
-        <div className="text-center space-y-4 pb-6">
-          <div className="flex items-center justify-center gap-3">
-            <Network className="w-10 h-10 text-primary" />
-            <h1 className="text-4xl md:text-5xl font-bold text-gradient">
+        <div className="text-center space-y-4 pb-8">
+          <div className="flex items-center justify-center gap-3 animate-scale-in">
+            <div className="relative">
+              <Network className="w-12 h-12 text-primary animate-float" />
+              <div className="absolute inset-0 w-12 h-12 bg-primary/20 rounded-full blur-xl animate-pulse" />
+            </div>
+            <h1 className="text-5xl md:text-6xl font-bold text-gradient drop-shadow-lg">
               DNS Simulator
             </h1>
           </div>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+          <p className="text-muted-foreground text-lg max-w-3xl mx-auto leading-relaxed">
             Simulate and visualize Domain Name System resolution with cache management, 
             authoritative servers, and detailed query analytics
           </p>
@@ -193,28 +202,37 @@ const Index = () => {
         <div className="grid lg:grid-cols-3 gap-6">
           {/* Left Column - Input & Config */}
           <div className="lg:col-span-1 space-y-6">
-            <Card className="p-6 bg-card border-border shadow-lg">
+            <Card className="glass-card p-6 shadow-xl hover:shadow-2xl transition-all duration-300">
               <Tabs defaultValue="query" className="w-full">
-                <TabsList className="grid w-full grid-cols-3 bg-secondary">
-                  <TabsTrigger value="query" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+                <TabsList className="grid w-full grid-cols-3 bg-secondary/50 p-1">
+                  <TabsTrigger 
+                    value="query" 
+                    className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-primary-glow data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg transition-all"
+                  >
                     <Activity className="w-4 h-4 mr-2" />
                     Query
                   </TabsTrigger>
-                  <TabsTrigger value="cache" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+                  <TabsTrigger 
+                    value="cache" 
+                    className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-primary-glow data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg transition-all"
+                  >
                     <Database className="w-4 h-4 mr-2" />
                     Cache
                   </TabsTrigger>
-                  <TabsTrigger value="servers" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+                  <TabsTrigger 
+                    value="servers" 
+                    className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-primary-glow data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg transition-all"
+                  >
                     <Network className="w-4 h-4 mr-2" />
                     Servers
                   </TabsTrigger>
                 </TabsList>
 
-                <TabsContent value="query" className="mt-4">
+                <TabsContent value="query" className="mt-6">
                   <QueryInput onQuery={handleQuery} />
                 </TabsContent>
 
-                <TabsContent value="cache" className="mt-4">
+                <TabsContent value="cache" className="mt-6">
                   <CacheManager 
                     cache={cache} 
                     onClearCache={handleClearCache}
@@ -222,7 +240,7 @@ const Index = () => {
                   />
                 </TabsContent>
 
-                <TabsContent value="servers" className="mt-4">
+                <TabsContent value="servers" className="mt-6">
                   <ServerConfig servers={servers} onAddServer={handleAddServer} />
                 </TabsContent>
               </Tabs>
@@ -231,18 +249,22 @@ const Index = () => {
 
           {/* Right Column - Visualization */}
           <div className="lg:col-span-2 space-y-6">
-            <Card className="p-6 bg-card border-border shadow-lg">
-              <div className="flex items-center gap-2 mb-4">
-                <TreePine className="w-5 h-5 text-primary" />
-                <h2 className="text-xl font-semibold">Resolution Path</h2>
+            <Card className="glass-card p-6 shadow-xl hover:shadow-2xl transition-all duration-300">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="p-2 bg-primary/10 rounded-lg">
+                  <TreePine className="w-6 h-6 text-primary" />
+                </div>
+                <h2 className="text-2xl font-bold">Resolution Path</h2>
               </div>
               <ResolutionViewer steps={resolutions} />
             </Card>
 
-            <Card className="p-6 bg-card border-border shadow-lg">
-              <div className="flex items-center gap-2 mb-4">
-                <Network className="w-5 h-5 text-primary" />
-                <h2 className="text-xl font-semibold">Query History Tree</h2>
+            <Card className="glass-card p-6 shadow-xl hover:shadow-2xl transition-all duration-300">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="p-2 bg-primary/10 rounded-lg">
+                  <Network className="w-6 h-6 text-primary" />
+                </div>
+                <h2 className="text-2xl font-bold">Query History Tree</h2>
               </div>
               <QueryTree queries={queries} />
             </Card>

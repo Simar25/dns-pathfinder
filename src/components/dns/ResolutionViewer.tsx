@@ -36,34 +36,39 @@ const ResolutionViewer = ({ steps }: ResolutionViewerProps) => {
   if (steps.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center h-64 text-muted-foreground">
-        <Info className="w-12 h-12 mb-3 opacity-50" />
-        <p className="text-sm">No resolution steps to display</p>
-        <p className="text-xs mt-1">Submit a query to see the resolution path</p>
+        <div className="relative">
+          <Info className="w-16 h-16 mb-4 opacity-30" />
+          <div className="absolute inset-0 w-16 h-16 bg-primary/10 rounded-full blur-xl animate-pulse" />
+        </div>
+        <p className="text-base font-medium">No resolution steps to display</p>
+        <p className="text-sm mt-2 text-center max-w-xs">Submit a query to see the resolution path</p>
       </div>
     );
   }
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-4">
       {steps.map((step, index) => (
         <div key={index} className="animate-slide-up" style={{ animationDelay: `${index * 100}ms` }}>
           <div className={cn(
-            "p-4 rounded-lg border-2 transition-all",
+            "p-5 rounded-xl border-2 transition-all hover:scale-[1.02] duration-300",
             getStatusColor(step.status)
           )}>
-            <div className="flex items-start gap-3">
-              <div className="mt-0.5">
+            <div className="flex items-start gap-4">
+              <div className="mt-1 p-2 rounded-lg bg-background/50">
                 {getStatusIcon(step.status)}
               </div>
               <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2 mb-1">
-                  <h3 className="font-semibold text-sm">{step.step}</h3>
-                  <span className="text-xs text-muted-foreground">({step.time}ms)</span>
+                <div className="flex items-center gap-2 mb-2">
+                  <h3 className="font-bold text-base">{step.step}</h3>
+                  <span className="text-xs font-mono px-2 py-1 rounded-full bg-background/50 text-muted-foreground">
+                    {step.time}ms
+                  </span>
                 </div>
-                <p className="text-sm text-muted-foreground mb-2">{step.description}</p>
+                <p className="text-sm text-muted-foreground mb-3 leading-relaxed">{step.description}</p>
                 <div className="flex items-center gap-2">
-                  <span className="text-xs font-medium text-muted-foreground">Result:</span>
-                  <code className="text-xs font-mono px-2 py-1 rounded bg-secondary border border-border">
+                  <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">Result:</span>
+                  <code className="text-sm font-mono px-3 py-1.5 rounded-lg bg-background/70 border border-border font-semibold">
                     {step.result}
                   </code>
                 </div>
@@ -72,17 +77,17 @@ const ResolutionViewer = ({ steps }: ResolutionViewerProps) => {
           </div>
           
           {index < steps.length - 1 && (
-            <div className="flex justify-center py-2">
-              <ArrowRight className="w-4 h-4 text-muted-foreground rotate-90" />
+            <div className="flex justify-center py-3">
+              <ArrowRight className="w-5 h-5 text-primary/50 rotate-90 animate-pulse" />
             </div>
           )}
         </div>
       ))}
 
-      <div className="mt-6 p-4 rounded-lg bg-card border border-primary/30">
+      <div className="mt-8 p-5 rounded-xl bg-gradient-to-r from-primary/10 to-primary-glow/10 border-2 border-primary/30">
         <div className="flex items-center justify-between">
-          <span className="text-sm font-medium">Total Resolution Time:</span>
-          <span className="text-lg font-bold text-primary font-mono">
+          <span className="text-sm font-bold uppercase tracking-wide">Total Resolution Time:</span>
+          <span className="text-2xl font-bold text-gradient font-mono">
             {steps.reduce((acc, step) => acc + step.time, 0)}ms
           </span>
         </div>

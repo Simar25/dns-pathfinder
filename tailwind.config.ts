@@ -82,10 +82,24 @@ export default {
             height: "0",
           },
         },
+        shimmer: {
+          "0%": { backgroundPosition: "200% 0" },
+          "100%": { backgroundPosition: "-200% 0" },
+        },
+        glow: {
+          "0%, 100%": { 
+            boxShadow: "0 0 20px hsl(199 89% 48% / 0.3), 0 0 40px hsl(186 100% 60% / 0.2)" 
+          },
+          "50%": { 
+            boxShadow: "0 0 40px hsl(199 89% 48% / 0.5), 0 0 60px hsl(186 100% 60% / 0.3)" 
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        shimmer: "shimmer 3s linear infinite",
+        glow: "glow 2s ease-in-out infinite",
       },
     },
   },

@@ -22,7 +22,7 @@ const Header = ({ onDownload }: HeaderProps) => {
             variant="outline"
             size="sm"
             onClick={onDownload}
-            className="gap-2"
+            className="gap-2 backdrop-blur-sm bg-card/80 border-border hover:bg-card hover:border-primary/50 transition-all duration-300 hover:scale-105"
           >
             <Download className="w-4 h-4" />
             Download
@@ -31,7 +31,7 @@ const Header = ({ onDownload }: HeaderProps) => {
             variant="outline"
             size="sm"
             onClick={() => setHelpOpen(true)}
-            className="gap-2"
+            className="gap-2 backdrop-blur-sm bg-card/80 border-border hover:bg-card hover:border-primary/50 transition-all duration-300 hover:scale-105"
           >
             <HelpCircle className="w-4 h-4" />
             Help
@@ -40,7 +40,7 @@ const Header = ({ onDownload }: HeaderProps) => {
             variant="outline"
             size="sm"
             onClick={() => setLearnOpen(true)}
-            className="gap-2"
+            className="gap-2 backdrop-blur-sm bg-card/80 border-border hover:bg-card hover:border-primary/50 transition-all duration-300 hover:scale-105"
           >
             <BookOpen className="w-4 h-4" />
             Learn
@@ -49,7 +49,7 @@ const Header = ({ onDownload }: HeaderProps) => {
             variant="outline"
             size="sm"
             onClick={() => setDevelopedByOpen(true)}
-            className="gap-2"
+            className="gap-2 backdrop-blur-sm bg-card/80 border-border hover:bg-card hover:border-primary/50 transition-all duration-300 hover:scale-105"
           >
             <Users className="w-4 h-4" />
             Developed by

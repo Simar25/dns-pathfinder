@@ -35,22 +35,22 @@ const QueryInput = ({ onQuery }: QueryInputProps) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit} className="space-y-6">
       <div className="space-y-2">
-        <Label htmlFor="domain" className="text-sm font-medium">Domain Name</Label>
+        <Label htmlFor="domain" className="text-sm font-semibold">Domain Name</Label>
         <Input
           id="domain"
           placeholder="example.com"
           value={domain}
           onChange={(e) => setDomain(e.target.value)}
-          className="bg-input border-border font-mono"
+          className="bg-input/50 border-border font-mono h-11 focus:ring-2 focus:ring-primary/30 transition-all"
         />
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="queryType" className="text-sm font-medium">Query Type</Label>
+        <Label htmlFor="queryType" className="text-sm font-semibold">Query Type</Label>
         <Select value={queryType} onValueChange={(value) => setQueryType(value as QueryType)}>
-          <SelectTrigger id="queryType" className="bg-input border-border">
+          <SelectTrigger id="queryType" className="bg-input/50 border-border h-11 focus:ring-2 focus:ring-primary/30">
             <SelectValue />
           </SelectTrigger>
           <SelectContent className="bg-popover border-border">
@@ -64,7 +64,7 @@ const QueryInput = ({ onQuery }: QueryInputProps) => {
 
       <Button 
         type="submit" 
-        className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
+        className="w-full bg-gradient-to-r from-primary to-primary-glow hover:shadow-lg hover:shadow-primary/50 text-primary-foreground h-11 font-semibold transition-all duration-300 hover:scale-[1.02]"
       >
         <Search className="w-4 h-4 mr-2" />
         Resolve Domain
