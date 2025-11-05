@@ -16,7 +16,7 @@ const DevelopedByModal = ({ open, onOpenChange }: DevelopedByModalProps) => {
   const teamMembers = [
     { name: "Simarjot Singh Anand", regNo: "24BCE5218" },
     { name: "Shashank Poddar", regNo: "24BCE5241" },
-    { name: "A.Swaminathan", regNo: "Developer" },
+    { name: "Dr. A.Swaminathan", regNo: "Developer" },
   ];
 
   return (
