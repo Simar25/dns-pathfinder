@@ -6,6 +6,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { User } from "lucide-react";
+import drSwaminathan from "@/assets/dr-swaminathan.jpg";
 
 interface DevelopedByModalProps {
   open: boolean;
@@ -14,9 +15,9 @@ interface DevelopedByModalProps {
 
 const DevelopedByModal = ({ open, onOpenChange }: DevelopedByModalProps) => {
   const teamMembers = [
-    { name: "Simarjot Singh Anand", regNo: "24BCE5218" },
-    { name: "Shashank Poddar", regNo: "24BCE5241" },
-    { name: "Dr. A.Swaminathan", regNo: "Developer" },
+    { name: "Simarjot Singh Anand", regNo: "24BCE5218", photo: null },
+    { name: "Shashank Poddar", regNo: "24BCE5241", photo: null },
+    { name: "Dr. A.Swaminathan", regNo: "Guided by", photo: drSwaminathan },
   ];
 
   return (
@@ -34,8 +35,12 @@ const DevelopedByModal = ({ open, onOpenChange }: DevelopedByModalProps) => {
               key={index}
               className="flex items-center gap-4 p-4 rounded-lg border border-border bg-secondary/50"
             >
-              <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center">
-                <User className="w-8 h-8 text-primary" />
+              <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center overflow-hidden">
+                {member.photo ? (
+                  <img src={member.photo} alt={member.name} className="w-full h-full object-cover" />
+                ) : (
+                  <User className="w-8 h-8 text-primary" />
+                )}
               </div>
               <div>
                 <p className="font-semibold text-lg">{member.name}</p>
