@@ -8,7 +8,7 @@ import ResolutionViewer from "@/components/dns/ResolutionViewer";
 import StatsDashboard from "@/components/dns/StatsDashboard";
 import QueryTree from "@/components/dns/QueryTree";
 import ServerConfig from "@/components/dns/ServerConfig";
-import DnsStepsOverview from "@/components/dns/DnsStepsOverview";
+import DnsFlowDiagram from "@/components/dns/DnsFlowDiagram";
 import Header from "@/components/Header";
 import { DnsQuery, CacheEntry, AuthServer, ResolutionStep } from "@/types/dns";
 import { toast } from "sonner";
@@ -257,7 +257,7 @@ const Index = () => {
                 </div>
                 <h2 className="text-2xl font-bold">Resolution Path</h2>
               </div>
-              <DnsStepsOverview />
+              <DnsFlowDiagram />
               <ResolutionViewer steps={resolutions} />
             </Card>
 
