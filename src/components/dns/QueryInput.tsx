@@ -15,36 +15,59 @@ const QueryInput = ({ onQuery }: QueryInputProps) => {
   const [domain, setDomain] = useState("");
   const [queryType, setQueryType] = useState<QueryType>("A");
 
+  // Extract domain from URL or return as-is if already just a domain
+  const extractDomain = (input: string): string => {
+    try {
+      // Remove protocol if present
+      let cleaned = input.trim().replace(/^https?:\/\//, '');
+      
+      // Remove path, query parameters, and hash
+      cleaned = cleaned.split('/')[0].split('?')[0].split('#')[0];
+      
+      // Remove port if present
+      cleaned = cleaned.split(':')[0];
+      
+      return cleaned;
+    } catch {
+      return input.trim();
+    }
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!domain.trim()) {
-      toast.error("Please enter a domain name");
+      toast.error("Please enter a domain name or URL");
       return;
     }
 
+    const extractedDomain = extractDomain(domain);
+
     const query: DnsQuery = {
-      domain: domain.trim(),
+      domain: extractedDomain,
       type: queryType,
       timestamp: Date.now(),
     };
 
     onQuery(query);
-    toast.success(`Querying ${domain}...`);
+    toast.success(`Querying ${extractedDomain}...`);
     setDomain("");
   };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <div className="space-y-2">
-        <Label htmlFor="domain" className="text-sm font-semibold">Domain Name</Label>
+        <Label htmlFor="domain" className="text-sm font-semibold">Domain Name or URL</Label>
         <Input
           id="domain"
-          placeholder="example.com"
+          placeholder="example.com or https://example.com/path"
           value={domain}
           onChange={(e) => setDomain(e.target.value)}
           className="bg-input/50 border-border font-mono h-11 focus:ring-2 focus:ring-primary/30 transition-all"
         />
+        <p className="text-xs text-muted-foreground mt-1">
+          Accepts full URLs - the domain will be automatically extracted
+        </p>
       </div>
 
       <div className="space-y-2">
