@@ -21,6 +21,7 @@ const Index = () => {
   ]);
   const [servers, setServers] = useState<AuthServer[]>([
     { domain: "google.com", ip: "142.250.185.46", type: "A" },
+    { domain: "sites.google.com", ip: "142.250.80.51", type: "A" },
     { domain: "example.com", ip: "93.184.216.34", type: "A" },
     { domain: "github.com", ip: "140.82.121.4", type: "A" },
     { domain: "cloudflare.com", ip: "104.16.132.229", type: "A" },
